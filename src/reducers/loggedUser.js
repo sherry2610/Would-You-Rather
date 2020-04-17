@@ -2,7 +2,7 @@ import { LOGGED_USER, LOG_OUT } from "../actions/loggedUser";
 
 
 
-export default function loggedUser(state=null, action){
+export default function loggedUser(state={}, action){
     switch(action.type){
         case LOGGED_USER:
             return {
@@ -12,5 +12,7 @@ export default function loggedUser(state=null, action){
             return {
                 ...action.logout
             }
+        default:
+            return state
     }
 }
