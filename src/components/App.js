@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { Component } from "react";
+//import {fetchInitialData} from '../actions/shared'
 
 
+class App extends Component {
 
-function App() {
-  return (
-    <div className="App">
-      would you rather
-    </div>
-  );
+  render() {
+    return <div className="App">would you rather</div>;
+  }
 }
 
 export default App;
