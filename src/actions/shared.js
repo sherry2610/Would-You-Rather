@@ -1,6 +1,6 @@
-import {getInitialData, _getUsers, _getQuestions} from '../_DATA.js'
-import {receiveUsers} from './users'
-import {receiveQuestions} from './questions'
+import {getInitialData} from '../_DATA'
+import receiveUsers from './users'
+import receiveQuestions from './questions'
 //import {loggedUser} from './authedUser'
 
 
