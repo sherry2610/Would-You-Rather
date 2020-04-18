@@ -11,3 +11,57 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.login-form{
+  position:relative;
+  top:100px;
+  left:27%;
+  border:5px solid gold;
+  width:45%;
+  height:600px;
+  padding:50px;  
+}
+.login-image{
+  position:relative;
+  left:100px;
+  height:230px;
+  
+}
+.login-form-controls{
+  position:relative;
+  top:50px;
+}
+.login-btn{
+  position:relative;
+  top:50px;
+  width:200px;
+  left:130px;
+}
+.overview-ul{
+  list-style-type:none;
+  margin:0px;
+}
+.overview-li{
+  margin:0px;
+}
+.overview-card{
+  border:2px groove gold;
+  margin:30px 0px 0px 0px;
+  padding:20px 0px 0px 0px;
+
+}
+.overiew-info{
+  
+}
+
+.overview-text{
+  margin-left:50px;
+  display:inline-block;
+  width:150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+.overview-btn{
+  margin-left:45%;
+  margin-bottom: 30px;
+}
