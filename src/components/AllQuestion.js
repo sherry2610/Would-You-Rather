@@ -14,7 +14,7 @@ class AllQuestion extends Component {
     answeredQuesBtn: false,
     unansweredQuesBtn: true,
     pollView:true,
-  };
+     };
   showAnswered = () => {
     const { answered } = this.props;
 
@@ -38,21 +38,24 @@ class AllQuestion extends Component {
       pollView:true,
     }));
   };
- 
+
   render() {
+    console.log("allquestion", this.props);
     const {
       unansweredQues,
       answeredQues,
       unansweredQuesBtn,
       answeredQuesBtn,
-      pollView
+      pollView,
+
     } = this.state;
 
     const pass = unansweredQues ? unansweredQues : answeredQues;
     console.log("allquestion state", this.state);
     console.log("allquestion", this.props);
     console.log("PASS", pass);
-    return (
+
+      return (
       <Container fluid style={{ border: "5px double #f5fc0f", width: "60%" }}>
         <Row>
           <Col>
@@ -81,19 +84,38 @@ class AllQuestion extends Component {
         <ul className="overview-ul">
           {pass.map((id) => (
             <li key={id} className="overview-li">
-              <QuestionOverview id={id} pollView={pollView} />
+              <QuestionOverview id={id} pollView={pollView} handleViewPoll={this.handleViewPoll} />
             </li>
           ))}
         </ul>
       </Container>
-    );
+    
+)  
   }
 }
-function mapStateToProps({ users, questions }, { currentUser }) {
+function mapStateToProps({ users, questions , loggedUser}) {
+  // const qid = Object.keys(questions).sort(
+  //   (a, b) => questions[b].timestamp - questions[a].timestamp
+  // );
+  // const currentUser = Object.values(loggedUser).join('')
+  //  const uid = Object.keys(users);
+  // const currentUserId = uid.filter((uid) => {
+  //   if (users[uid].name === currentUser) {
+  //     return users[uid].answers;
+  //   }
+  // });
+  // return {
+  //   uid,
+  //   qid,
+  //   currentUser,
+  //   currentUserId
+  //   }
+
   const qid = Object.keys(questions).sort(
     (a, b) => questions[b].timestamp - questions[a].timestamp
   );
   const uid = Object.keys(users);
+  const currentUser = Object.values(loggedUser).join('')
   const currentUserId = uid.filter((uid) => {
     if (users[uid].name === currentUser) {
       return users[uid].answers;
@@ -106,7 +128,7 @@ function mapStateToProps({ users, questions }, { currentUser }) {
     !answered.includes(id) && unanswered.push(id);
   });
   return {
-    currentUser,
+    loggedUser,
     currentUserId,
     qid,
     answered,

@@ -1,20 +1,42 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
 import {fetchInitialData} from '../actions/shared'
-import Game from './Game'
-//import Login from './Login'
+import Login from './Login'
+import AllQuestion from './AllQuestion'
+
+
 
 class App extends Component {
-componentDidMount(){
+  state = {
+    componentToRender: 'Login'
+  }
+  toAllQuestion = () =>{
+    this.setState(()=>({
+      componentToRender: 'AllQuestion'
+    }))
+  }
+  componentDidMount(){
     this.props.dispatch(fetchInitialData())
 }
 
 
+
+
   render() {
-    return <div className="App">
-    {/* <Login /> */}
-    <Game />
-    </div>;
+    const {componentToRender} = this.state
+    return (
+
+    <div className="App">
+    
+
+      {componentToRender==='Login'&&(<Login manageView={this.toAllQuestion} /> )}
+      {componentToRender==='AllQuestion'&&(<AllQuestion />)}
+    
+    
+    
+    </div>
+    
+    )
   }
 }
 
