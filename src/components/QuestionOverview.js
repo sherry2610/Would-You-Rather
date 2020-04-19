@@ -8,7 +8,7 @@ import Image from 'react-bootstrap/Image'
 
 class QuestionOverview extends Component {
   render() {
-    console.log("QuestionOverview", this.props);
+    
     const {pic,questionText,}=this.props
     
     

@@ -36,6 +36,20 @@ code {
   width:200px;
   left:130px;
 }
+.add-question{
+  border:2px groove gold;
+  margin:30px 0px 0px 400px;
+  padding:20px 0px 0px 0px;
+  width:45%;
+  height:390px;
+
+}
+.add-option{
+  margin:10px 0px 50px 0px;
+}
+.add-btn{
+  margin-left: 41%;
+}
 .overview-ul{
   list-style-type:none;
   margin:0px;
@@ -48,9 +62,6 @@ code {
   margin:30px 0px 0px 0px;
   padding:20px 0px 0px 0px;
 
-}
-.overiew-info{
-  
 }
 
 .overview-text{

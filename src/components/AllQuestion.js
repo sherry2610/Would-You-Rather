@@ -18,7 +18,7 @@ class AllQuestion extends Component {
   showAnswered = () => {
     const { answered } = this.props;
 
-    console.log("ANSWERED", answered);
+
 
     this.setState(() => ({
       answeredQues: answered,
@@ -40,7 +40,7 @@ class AllQuestion extends Component {
   };
 
   render() {
-    console.log("allquestion", this.props);
+
     const {
       unansweredQues,
       answeredQues,
@@ -51,9 +51,6 @@ class AllQuestion extends Component {
     } = this.state;
 
     const pass = unansweredQues ? unansweredQues : answeredQues;
-    console.log("allquestion state", this.state);
-    console.log("allquestion", this.props);
-    console.log("PASS", pass);
 
       return (
       <Container fluid style={{ border: "5px double #f5fc0f", width: "60%" }}>
@@ -94,22 +91,6 @@ class AllQuestion extends Component {
   }
 }
 function mapStateToProps({ users, questions , loggedUser}) {
-  // const qid = Object.keys(questions).sort(
-  //   (a, b) => questions[b].timestamp - questions[a].timestamp
-  // );
-  // const currentUser = Object.values(loggedUser).join('')
-  //  const uid = Object.keys(users);
-  // const currentUserId = uid.filter((uid) => {
-  //   if (users[uid].name === currentUser) {
-  //     return users[uid].answers;
-  //   }
-  // });
-  // return {
-  //   uid,
-  //   qid,
-  //   currentUser,
-  //   currentUserId
-  //   }
 
   const qid = Object.keys(questions).sort(
     (a, b) => questions[b].timestamp - questions[a].timestamp

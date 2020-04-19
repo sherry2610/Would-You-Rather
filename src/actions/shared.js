@@ -1,6 +1,7 @@
+import {ADD_QUESTION} from './questions'
 import {getInitialData} from '../_DATA'
-import receiveUsers from './users'
-import receiveQuestions from './questions'
+import {receiveUsers} from './users'
+import {receiveQuestions} from './questions'
 //import {loggedUser} from './authedUser'
 
 

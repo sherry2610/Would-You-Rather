@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
 import logo from "../assets/images/logo.png";
 import Button from "react-bootstrap/Button";
-import loggedUser from '../actions/loggedUser'
+import {loggedUser} from '../actions/loggedUser'
 
 class Login extends Component {
   state = {
@@ -26,8 +26,7 @@ class Login extends Component {
     manageView()
   }
   render() {
-    console.log("LOGIN", this.props)
-    console.log("LOGIN STATE", this.state)
+
     const { name} = this.props;
     return (
       <div className="login-form">
