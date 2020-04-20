@@ -8,7 +8,7 @@ import Image from 'react-bootstrap/Image'
 
 class Menu extends Component {
   render(){
-  const {toAllQuestion,toLeaderboard,toAddQuestion,pic,name} = this.props
+  const {toLogin,toAllQuestion,toLeaderboard,toAddQuestion,pic,name} = this.props
     return (
         <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="#home">WOULD YOU RATHER</Navbar.Brand>
@@ -19,7 +19,7 @@ class Menu extends Component {
         </Nav>
         <Image src={pic} alt="profile pic" roundedCircle style={{height:'50px'}} />
         <span style={{color:'white'}}>{name}</span>
-          <Button variant="outline-info">Logout</Button>
+          <Button variant="outline-info" onClick={toLogin}>Logout</Button>
         
       </Navbar>
     

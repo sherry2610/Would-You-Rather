@@ -7,7 +7,7 @@ import Image from "react-bootstrap/Image";
 
 class QuestionOverview extends Component {
   render() {
-    const { id, askedBy, pic, questionText } = this.props;
+    const { id, askedBy, pic, questionText,pollView } = this.props;
 
     return (
       <div>
@@ -21,7 +21,7 @@ class QuestionOverview extends Component {
               <Button
                 className="overview-btn"
                 onClick={() => {
-                  this.props.toPollView({ id });
+                  pollView?this.props.toPollView({ id }):this.props.toResultView({ id })
                 }}
               >
                 View Poll

@@ -19,6 +19,11 @@ class App extends Component {
       componentToRender: 'AllQuestion'
     }))
   }
+  toLogin = () =>{
+    this.setState(()=>({
+      componentToRender: 'Login'
+    }))
+  }
   toAddQuestion = () =>{
     this.setState(()=>({
       componentToRender: 'AddQuestion'
@@ -55,34 +60,34 @@ class App extends Component {
     <div className="App">
     
 
-      {componentToRender==='Login'&&(<Login manageView={this.toAllQuestion} /> )}
+      {componentToRender==='Login'&&(<Login manageView={this.toAllQuestion}  />  )}
       {componentToRender==='AllQuestion'&&(
         <div>
-      <Menu toAllQuestion={this.toAllQuestion} toAddQuestion={this.toAddQuestion} toLeaderboard={this.toLeaderboard} />
-      <AllQuestion  toPollView={this.toPollView} />
+      <Menu toLogin={this.toLogin} toAllQuestion={this.toAllQuestion} toAddQuestion={this.toAddQuestion} toLeaderboard={this.toLeaderboard} />
+      <AllQuestion  toPollView={this.toPollView} toResultView={this.toResultView} />
       </div>
       )}
       {componentToRender==='AddQuestion'&&(
         <div>
-      <Menu toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
+      <Menu toLogin={this.toLogin} toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
       <Add toAllQuestion={this.toAllQuestion} />
       </div>
       )}
       {componentToRender==='Leaderboard'&&(
         <div>
-      <Menu toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
+      <Menu toLogin={this.toLogin} toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
       <Leaderboard toAllQuestion={this.toAllQuestion} />
       </div>
       )}
       {componentToRender==='PollView'&&(
         <div>
-      <Menu toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
-      <PollView  id={this.state.id} toResultView={this.toResultView} />
+      <Menu toLogin={this.toLogin} toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
+      <PollView  id={this.state.id} toResultView={this.toResultView}  />
       </div>
       )}
       {componentToRender==='ResultView'&&(
         <div>
-      <Menu toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
+      <Menu toLogin={this.toLogin} toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
       <Result  id={this.state.id} />
       </div>
       )}
