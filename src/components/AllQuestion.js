@@ -81,7 +81,7 @@ class AllQuestion extends Component {
         <ul className="overview-ul">
           {pass.map((id) => (
             <li key={id} className="overview-li">
-              <QuestionOverview id={id} pollView={pollView} handleViewPoll={this.handleViewPoll} />
+              <QuestionOverview id={id} pollView={pollView} toPollView={this.props.toPollView} />
             </li>
           ))}
         </ul>

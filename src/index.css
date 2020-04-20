@@ -50,10 +50,6 @@ code {
 .add-btn{
   margin-left: 41%;
 }
-.overview-ul{
-  list-style-type:none;
-  margin:0px;
-}
 .leaderboard-info{
   border:5px groove gold;
   margin:0 auto;
@@ -94,6 +90,11 @@ border:5px groove black;
   /* right:0px; */
   /* top:50px; */
 }
+.overview-ul{
+  list-style-type:none;
+  margin:0px;
+}
+
 .overview-li{
   margin:0px;
 }
@@ -115,4 +116,33 @@ border:5px groove black;
 .overview-btn{
   margin-left:45%;
   margin-bottom: 30px;
+}
+.pollview-card{
+  border:2px groove gold;
+  margin:0 auto;
+  padding:20px 0px 0px 0px;
+ width: 55%;
+}
+.pollview-img{
+  border:3px solid black;
+ 
+  
+}
+.option{
+  position: relative;
+  left:200px;
+  bottom:100px;
+}
+.pollview-btn{
+  margin-top:60px;
+}
+
+.bar-div{
+  margin:10px;
+  position: relative;
+  left: 180px;
+  bottom: 100px;
+}
+.bar{
+  width:370px;
 }
