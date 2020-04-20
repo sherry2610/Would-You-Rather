@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import {fetchInitialData} from '../actions/shared'
 import Login from './Login'
 import AllQuestion from './AllQuestion'
-import Navbar from './Menu'
+import Menu from './Menu'
 import Add from './Add'
+import Leaderboard from './Leaderboard'
 
 class App extends Component {
   state = {
@@ -42,17 +43,22 @@ class App extends Component {
       {componentToRender==='Login'&&(<Login manageView={this.toAllQuestion} /> )}
       {componentToRender==='AllQuestion'&&(
         <div>
-      <Navbar toAllQuestion={this.toAllQuestion} toAddQuestion={this.toAddQuestion} />
+      <Menu toAllQuestion={this.toAllQuestion} toAddQuestion={this.toAddQuestion} toLeaderboard={this.toLeaderboard} />
       <AllQuestion />
       </div>
       )}
       {componentToRender==='AddQuestion'&&(
         <div>
-      <Navbar toAllQuestion={this.toAllQuestion} toAddQuestion={this.toAddQuestion} />
+      <Menu toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
       <Add toAllQuestion={this.toAllQuestion} />
       </div>
       )}
-    
+      {componentToRender==='Leaderboard'&&(
+        <div>
+      <Menu toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
+      <Leaderboard toAllQuestion={this.toAllQuestion} />
+      </div>
+      )}
     
     </div>
     
