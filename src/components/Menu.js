@@ -1,49 +1,63 @@
-import React, { Component } from 'react'
-import {connect} from 'react-redux'
-import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
-import Button from 'react-bootstrap/Button'
-import Image from 'react-bootstrap/Image'
+import React from "react";
+import { connect } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
+import { logOut } from "../actions/loggedUser";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 
+const Menu = (props) => {
+  const handleLogout = () => {
+    props.dispatch(logOut());
 
-class Menu extends Component {
-  render(){
-  const {toLogin,toAllQuestion,toLeaderboard,toAddQuestion,pic,name} = this.props
-    return (
-        <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="#home">WOULD YOU RATHER</Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link  onClick={toAllQuestion}>Home</Nav.Link>
-          <Nav.Link  onClick={toAddQuestion}>ADD QUESTION</Nav.Link>
-          <Nav.Link onClick={toLeaderboard} >Leaderboard</Nav.Link>
-        </Nav>
-        <Image src={pic} alt="profile pic" roundedCircle style={{height:'50px'}} />
-        <span style={{color:'white'}}>{name}</span>
-          <Button variant="outline-info" onClick={toLogin}>Logout</Button>
-        
-      </Navbar>
-    
-    )
-  }
-}
+    props.history.push("/login");
+  };
+  const { pic, name } = props;
+  return (
+    <Navbar bg="dark" variant="dark">
+      <Link to="/home">WOULD YOU RATHER</Link>
+      <Nav className="mr-auto">
+        <Link to="/home" className="nav-link">Home</Link>
+        <Link to="/add" className="nav-link" >ADD QUESTION</Link>
+        <Link to="/leaderboard" className="nav-link" >Leaderboard</Link>
+      </Nav>
+      <Image
+        src={pic}
+        alt="profile pic"
+        roundedCircle
+        style={{ height: "50px" }}
+      />
+      <span style={{ color: "white" }}>{name}</span>
+      <Button
+        variant="outline-info"
+        onClick={() => {
+          handleLogout();
+        }}
+      >
+        Logout
+      </Button>
+    </Navbar>
+  );
+};
 
-
-function mapStateToProps({users,loggedUser}){
+function mapStateToProps({ users, loggedUser }) {
   const uid = Object.keys(users);
-  const currentUser = Object.values(loggedUser).join('')
+  const currentUser = Object.values(loggedUser).join("");
   const currentUserId = uid.filter((uid) => {
     if (users[uid].name === currentUser) {
       return users[uid].answers;
     }
   });
-  const name = users[currentUserId].name
-  const pic = users[currentUserId].avatarURL
-return {
-  pic,
-  name,
+  if (loggedUser) {
+    const name = users[currentUserId].name;
+    const pic = users[currentUserId].avatarURL;
+
+    return {
+      pic,
+      name,
+    };
+  }
 }
-}
 
-
-export default connect(mapStateToProps)(Menu)
-
+export default withRouter(connect(mapStateToProps)(Menu));

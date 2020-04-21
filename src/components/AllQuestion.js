@@ -91,7 +91,7 @@ class AllQuestion extends Component {
   }
 }
 function mapStateToProps({ users, questions , loggedUser}) {
-
+if(loggedUser){
   const qid = Object.keys(questions).sort(
     (a, b) => questions[b].timestamp - questions[a].timestamp
   );
@@ -114,7 +114,8 @@ function mapStateToProps({ users, questions , loggedUser}) {
     qid,
     answered,
     unanswered,
-  };
+  }
+}
 }
 
 export default connect(mapStateToProps)(AllQuestion);

@@ -67,7 +67,6 @@ function mapStateToProp({ users, questions }) {
   const noOfQuestions = uid.map((uid) => users[uid].questions.length);
   const sum = noOfAnswers.map((ans, i) => ans + noOfQuestions[i]);
 
-
   uid.forEach((uid) => {});
   return {
     uid,

@@ -1,37 +1,52 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter, Redirect } from "react-router-dom";
+import { loggedUser } from "../actions/loggedUser";
+import { fakeAuth } from "./App";
 import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
 import logo from "../assets/images/logo.png";
 import Button from "react-bootstrap/Button";
-import {loggedUser} from '../actions/loggedUser'
 
 class Login extends Component {
   state = {
-    loggedUser:''
-  }
-  handleChange = (e) =>{
-    e.preventDefault()
-    e.persist()
+    redirectToReferrer: false,
+    loggedinUser: "",
+  };
+  login = () => {
+    fakeAuth.authenticate(() => {
+      this.setState(() => ({
+        redirectToReferrer: true,
+      }));
+    });
+  };
+  handleChange = (e) => {
+    e.preventDefault();
+    e.persist();
     this.setState({
-      loggedUser:e.target.value
-    })
-  }
+      loggedinUser: e.target.value,
+    });
+  };
+
   handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    const { loggedinUser } = this.state;
+    const { dispatch } = this.props;
 
-    const {dispatch,manageView} = this.props
-
-    dispatch(loggedUser(this.state.loggedUser))
-    manageView()
-  }
+    dispatch(loggedUser(loggedinUser));
+    this.login();
+  };
   render() {
+    const { redirectToReferrer } = this.state;
 
-    const { name} = this.props;
+    if (redirectToReferrer === true) {
+      return <Redirect to="/home" />;
+    }
+    const { name } = this.props;
     return (
       <div className="login-form">
         <Image className="login-image" src={logo} alt="game logo" />
-        <Form onSubmit={(e)=>this.handleSubmit(e)}>
+        <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group
             controlId="exampleForm.ControlSelect1"
             className="login-form-controls"
@@ -51,9 +66,9 @@ class Login extends Component {
             variant="primary"
             type="submit"
             className="login-btn"
-            disabled={this.state.loggedUser ? false : true}
+            disabled={this.state.loggedinUser ? false : true}
           >
-            Submit
+            Login
           </Button>
         </Form>
       </div>
@@ -61,14 +76,13 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps({ users },{manageView}) {
+function mapStateToProps({ users }) {
   const uid = Object.keys(users);
   const name = uid.map((id) => users[id].name);
 
   return {
     name,
-    manageView
   };
 }
 
-export default connect(mapStateToProps)(Login);
+export default withRouter(connect(mapStateToProps)(Login));

@@ -78,17 +78,14 @@ border:5px groove black;
   border-radius: 90px;
   padding:30px;
   display:inline-block;
-  width:180px;
-  height:180px;
+  width:130px;
+  height:130px;
   position:absolute;
   right:10px;
   bottom:0px;
-  font-size:36px;
+  font-size:22px;
   font-weight: bold;
   background-color: gold;
-  /* position:absolute; */
-  /* right:0px; */
-  /* top:50px; */
 }
 .overview-ul{
   list-style-type:none;
@@ -145,4 +142,11 @@ border:5px groove black;
 }
 .bar{
   width:370px;
+}
+.btn{
+  text-decoration: none;
+  color:white;
+}
+.nav-link{
+  color:white;
 }

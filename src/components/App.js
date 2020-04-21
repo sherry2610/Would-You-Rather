@@ -1,100 +1,74 @@
-import React, { Component } from "react";
-import { connect } from 'react-redux'
-import {fetchInitialData} from '../actions/shared'
-import Login from './Login'
-import AllQuestion from './AllQuestion'
-import Menu from './Menu'
-import Add from './Add'
-import Leaderboard from './Leaderboard'
-import PollView from './PollView'
-import Result from './Result'
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { fetchInitialData } from "../actions/shared";
+import Login from "./Login";
+import Menu from "./Menu";
+import AllQuestion from "./AllQuestion";
+import Add from "./Add";
+import Leaderboard from "./Leaderboard";
+import PollView from "./PollView";
+import Result from "./Result";
+
+export const fakeAuth = {
+  isAuthenticated: false,
+  authenticate(cb) {
+    fakeAuth.isAuthenticated = true;
+    setTimeout(cb, 100); // fake async
+  },
+  signout(cb) {
+    fakeAuth.isAuthenticated = false;
+    setTimeout(cb, 100);
+  },
+};
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      fakeAuth.isAuthenticated === true ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/login" />
+      )
+    }
+  />
+);
 
 class App extends Component {
-  state = {
-    componentToRender: 'Login',
-    id:''
+  componentDidMount() {
+    this.props.dispatch(fetchInitialData());
   }
-  toAllQuestion = () =>{
-    this.setState(()=>({
-      componentToRender: 'AllQuestion'
-    }))
-  }
-  toLogin = () =>{
-    this.setState(()=>({
-      componentToRender: 'Login'
-    }))
-  }
-  toAddQuestion = () =>{
-    this.setState(()=>({
-      componentToRender: 'AddQuestion'
-    }))
-  }
-  toLeaderboard = () =>{
-    this.setState(()=>({
-      componentToRender: 'Leaderboard'
-    }))
-  }
-  toPollView = (qid) =>{
-    this.setState(()=>({
-      componentToRender: 'PollView',
-      id:qid
-    }))
-  }
-    toResultView = (qid) =>{
-    this.setState(()=>({
-      componentToRender: 'ResultView',
-      id:qid,
-    }))
-  }
-  componentDidMount(){
-    this.props.dispatch(fetchInitialData())
-}
-
-
-
 
   render() {
-    const {componentToRender} = this.state
     return (
+      <Router>
+        <Route path={["/", "/login"]} exact component={Login} />
 
-    <div className="App">
-    
-
-      {componentToRender==='Login'&&(<Login manageView={this.toAllQuestion}  />  )}
-      {componentToRender==='AllQuestion'&&(
-        <div>
-      <Menu toLogin={this.toLogin} toAllQuestion={this.toAllQuestion} toAddQuestion={this.toAddQuestion} toLeaderboard={this.toLeaderboard} />
-      <AllQuestion  toPollView={this.toPollView} toResultView={this.toResultView} />
-      </div>
-      )}
-      {componentToRender==='AddQuestion'&&(
-        <div>
-      <Menu toLogin={this.toLogin} toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
-      <Add toAllQuestion={this.toAllQuestion} />
-      </div>
-      )}
-      {componentToRender==='Leaderboard'&&(
-        <div>
-      <Menu toLogin={this.toLogin} toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
-      <Leaderboard toAllQuestion={this.toAllQuestion} />
-      </div>
-      )}
-      {componentToRender==='PollView'&&(
-        <div>
-      <Menu toLogin={this.toLogin} toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
-      <PollView  id={this.state.id} toResultView={this.toResultView}  />
-      </div>
-      )}
-      {componentToRender==='ResultView'&&(
-        <div>
-      <Menu toLogin={this.toLogin} toAllQuestion={this.toAllQuestion} toLeaderboard={this.toLeaderboard} toAddQuestion={this.toAddQuestion} />
-      <Result  id={this.state.id} />
-      </div>
-      )}
-    </div>
-    
-    )
+        <PrivateRoute
+          path={[
+            "/home",
+            "/add",
+            "/questions/:id",
+            "/question/:id",
+            "/leaderboard",
+          ]}
+          component={Menu}
+        />
+        <PrivateRoute path="/home" exact component={AllQuestion} />
+        <PrivateRoute path="/add" exact component={Add} />
+        <PrivateRoute path="/questions/:id" exact component={PollView} />
+        <PrivateRoute path="/question/:id" exact component={Result} />
+        <PrivateRoute path="/leaderboard" exact component={Leaderboard} />
+      </Router>
+    );
   }
 }
 
-export default connect()(App)
+function mapStateToProps({ loggedUser }) {
+  return {
+    loggedUser,
+  };
+}
+
+export default connect(mapStateToProps)(App);

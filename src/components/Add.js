@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import {handleAddQuestion} from '../actions/questions'
+import { withRouter } from "react-router-dom"
 
 class Add extends Component {
     state = {
@@ -30,13 +31,10 @@ class Add extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
         const {opt1,opt2} = this.state
-        const {dispatch,toAllQuestion} = this.props
+        const {dispatch} = this.props
 
         dispatch(handleAddQuestion(opt1,opt2))
-        setTimeout(() => { 
-            toAllQuestion()
-        }, 1000)
-        
+        setTimeout(()=>this.props.history.push('/home'),1000)
 
     }
   render() {
@@ -88,4 +86,4 @@ function mapStateToProps({users,questions,loggedUser}){
 }
 
 
-export default connect(mapStateToProps)(Add)
+export default withRouter(connect(mapStateToProps)(Add))

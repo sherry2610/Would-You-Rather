@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import { handleAddAnswer } from "../actions/questions";
-
+import {withRouter,Redirect} from 'react-router-dom'
 
 
 class PollView extends Component {
@@ -18,22 +18,23 @@ class PollView extends Component {
         }))
     }
   handleSubmitAnswer = (e) => {
-      const {dispatch,currentUserId,id,toResultView} = this.props
+      const {dispatch,currentUserId,id} = this.props
       const {value} = this.state
     e.preventDefault();
     console.log("VALUE",value)
-    dispatch(handleAddAnswer(currentUserId[0],id.id,value))
-    setTimeout(()=>{toResultView(id)},1000)
-  };
+    dispatch(handleAddAnswer(currentUserId[0],id,value))
+  this.props.history.push(`/home`)
+  this.props.history.push(`question/${id}`)
+  
+  }
   render() {
-    console.log("POLLVIEW", this.props)
-    console.log("POLLVIEW STATE", this.state)
+    
     const {askedBy,pic,optionOneText,optionTwoText} = this.props
     return (
         <div className='pollview-card'>
         
       <Form onSubmit={(e)=>{this.handleSubmitAnswer(e)}}>
-      <h2>Asked By: {askedBy}</h2>
+      <h6>{askedBy} asking Would you rather...</h6>
       <Image src={pic} alt="profile pic" className='pollview-img' roundedCircle/>
         <div className='option'>
         <Form.Check inline type="radio" name="option" value="optionOne" onChange={(e)=>this.handleChange(e)} />{optionOneText}<br />
@@ -49,7 +50,8 @@ class PollView extends Component {
   }
 }
 
-function mapStateToProp({ users,questions, loggedUser },{id}) {
+function mapStateToProp({ users,questions, loggedUser },props) {
+    const {id} = props.match.params
   const uid = Object.keys(users);
   const currentUser = Object.values(loggedUser).join("");
   const currentUserId = uid.filter((uid) => {
@@ -57,11 +59,11 @@ function mapStateToProp({ users,questions, loggedUser },{id}) {
       return users[uid].answers;
     }
   })
-  //const pic = users[[questions[id]].author].avatarURL
-  const pic = users[questions[id.id].author].avatarURL
-  const optionOneText = questions[id.id].optionOne.text
-  const optionTwoText = questions[id.id].optionTwo.text
-  const askedBy = questions[id.id].author
+  
+  const pic = users[questions[id].author].avatarURL
+  const optionOneText = questions[id].optionOne.text
+  const optionTwoText = questions[id].optionTwo.text
+  const askedBy = users[questions[id].author].name
 
   return {
     currentUserId,
@@ -74,4 +76,4 @@ function mapStateToProp({ users,questions, loggedUser },{id}) {
   };
 }
 
-export default connect(mapStateToProp)(PollView);
+export default withRouter(connect(mapStateToProp)(PollView))
