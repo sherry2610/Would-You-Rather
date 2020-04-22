@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import {connect} from 'react-redux'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import {handleAddQuestion} from '../actions/questions'
 import { withRouter } from "react-router-dom"
@@ -43,9 +42,10 @@ class Add extends Component {
     return (
       <div className='add-question'>
 
-
+<h3>Would You Rather...</h3>
         <Form onSubmit={(e)=>this.handleSubmit(e)}>
   <Form.Row>
+      
     <Col>
     <h6>Option One</h6>
       <Form.Control  placeholder="option two" className="add-option" onChange={(e)=>this.handleChngeOpt1(e)}/>
@@ -60,7 +60,7 @@ class Add extends Component {
     <Form.Row>
     <Col>
     <Button variant="primary" className='add-btn' type="submit" disabled={this.handleBtn()}>
-            Submit
+            Add Question
           </Button>
     </Col>
   </Form.Row>
@@ -74,11 +74,7 @@ class Add extends Component {
 function mapStateToProps({users,questions,loggedUser}){
     const uid = Object.keys(users);
     const currentUser = Object.values(loggedUser).join('')
-    const currentUserId = uid.filter((uid) => {
-      if (users[uid].name === currentUser) {
-        return users[uid].answers;
-      }
-    })
+    const currentUserId = uid.filter((uid) => {return (users[uid].name === currentUser) ? users[uid].answers : '' })
   
     return {
         currentUserId,

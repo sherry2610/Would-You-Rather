@@ -16,14 +16,12 @@ class Leaderboard extends Component {
         sum: sum[i],
       };
     });
-    console.log("LEADERBOARD DATA", data);
+
 
     data.sort((a, b) => {
       return b.sum - a.sum;
     });
 
-    console.log("LEADERBOARD", this.props);
-    console.log("LEADERBOARD DATA", data);
 
     return (
       <div>

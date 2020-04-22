@@ -6,26 +6,23 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-
 class AllQuestion extends Component {
   state = {
     answeredQues: [],
     unansweredQues: this.props.unanswered,
     answeredQuesBtn: false,
     unansweredQuesBtn: true,
-    pollView:true,
-     };
+    pollView: true,
+  };
   showAnswered = () => {
     const { answered } = this.props;
-
-
 
     this.setState(() => ({
       answeredQues: answered,
       unansweredQues: false,
       answeredQuesBtn: true,
       unansweredQuesBtn: false,
-      pollView:false,
+      pollView: false,
     }));
   };
   showUnanswered = () => {
@@ -35,31 +32,28 @@ class AllQuestion extends Component {
       unansweredQues: unanswered,
       answeredQuesBtn: false,
       unansweredQuesBtn: true,
-      pollView:true,
+      pollView: true,
     }));
   };
 
   render() {
-
     const {
       unansweredQues,
       answeredQues,
       unansweredQuesBtn,
       answeredQuesBtn,
       pollView,
-
     } = this.state;
 
     const pass = unansweredQues ? unansweredQues : answeredQues;
 
-      return (
+    return (
       <Container fluid style={{ border: "5px double #f5fc0f", width: "60%" }}>
         <Row>
           <Col>
             <Button
               variant="warning"
               size="lg"
-              disabled=""
               style={{ width: "50%" }}
               onClick={this.showUnanswered}
               disabled={unansweredQuesBtn}
@@ -69,7 +63,6 @@ class AllQuestion extends Component {
             <Button
               variant="warning"
               size="lg"
-              disabled=""
               style={{ width: "50%" }}
               onClick={this.showAnswered}
               disabled={answeredQuesBtn}
@@ -81,41 +74,41 @@ class AllQuestion extends Component {
         <ul className="overview-ul">
           {pass.map((id) => (
             <li key={id} className="overview-li">
-              <QuestionOverview id={id} pollView={pollView} toPollView={this.props.toPollView} toResultView={this.props.toResultView} />
+              <QuestionOverview
+                id={id}
+                pollView={pollView}
+                toPollView={this.props.toPollView}
+                toResultView={this.props.toResultView}
+              />
             </li>
           ))}
         </ul>
       </Container>
-    
-)  
+    );
   }
 }
-function mapStateToProps({ users, questions , loggedUser}) {
-if(loggedUser){
-  const qid = Object.keys(questions).sort(
-    (a, b) => questions[b].timestamp - questions[a].timestamp
-  );
-  const uid = Object.keys(users);
-  const currentUser = Object.values(loggedUser).join('')
-  const currentUserId = uid.filter((uid) => {
-    if (users[uid].name === currentUser) {
-      return users[uid].answers;
-    }
-  });
-  const unanswered = [];
+function mapStateToProps({ users, questions, loggedUser }) {
+  if (loggedUser) {
+    const qid = Object.keys(questions).sort(
+      (a, b) => questions[b].timestamp - questions[a].timestamp
+    );
+    const uid = Object.keys(users);
+    const currentUser = Object.values(loggedUser).join("");
+    const currentUserId = uid.filter((uid) =>{return (users[uid].name === currentUser)? users[uid].answers : ''})
+    const unanswered = [];
 
-  const answered = Object.keys(users[currentUserId].answers);
-  qid.forEach((id) => {
-    !answered.includes(id) && unanswered.push(id);
-  });
-  return {
-    loggedUser,
-    currentUserId,
-    qid,
-    answered,
-    unanswered,
+    const answered = Object.keys(users[currentUserId].answers);
+    qid.forEach((id) => {
+      !answered.includes(id) && unanswered.push(id);
+    });
+    return {
+      loggedUser,
+      currentUserId,
+      qid,
+      answered,
+      unanswered,
+    };
   }
-}
 }
 
 export default connect(mapStateToProps)(AllQuestion);

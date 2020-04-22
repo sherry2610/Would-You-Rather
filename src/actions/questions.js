@@ -27,11 +27,7 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
     const { loggedUser, users } = getState();
     const uid = Object.keys(users);
     const currentUser = Object.values(loggedUser).join("");
-    const author = uid.filter((uid) => {
-      if (users[uid].name === currentUser) {
-        return users[uid].answers;
-      }
-    });
+    const author = uid.filter((uid) => {return (users[uid].name === currentUser) ? users[uid].answers :''})
 
     return _saveQuestion({
       author,
@@ -55,13 +51,7 @@ function addAnswer(answer) {
 export function handleAddAnswer(authedUser, qid, answer) {
   return (dispatch) => {
     dispatch(addAnswer({ authedUser, qid, answer }))
-    console.log("ANSWER before invoke", answer)
-    const obj = {
-      authedUser,
-      qid,
-      answer,
-    }
-    //return _saveQuestionAnswer(obj)
+    
     return _saveQuestionAnswer({
       authedUser,
       qid,

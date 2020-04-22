@@ -25,7 +25,7 @@ class QuestionOverview extends Component {
                     Poll View
                   </Link>
                 ) : (
-                  <Link to={`/question/${id}`}>Poll View</Link>
+                  <Link to={`/question/${id}`} className="btn">Poll View</Link>
                 )}
               </Button>
             </div>

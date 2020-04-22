@@ -8,6 +8,8 @@ import Image from "react-bootstrap/Image";
 import logo from "../assets/images/logo.png";
 import Button from "react-bootstrap/Button";
 
+
+
 class Login extends Component {
   state = {
     redirectToReferrer: false,
@@ -37,10 +39,13 @@ class Login extends Component {
     this.login();
   };
   render() {
+    console.log("PROPS",this.props)
+    //const { from } = this.props.location.pathname || { from: { pathname: '/home' } }
     const { redirectToReferrer } = this.state;
 
     if (redirectToReferrer === true) {
-      return <Redirect to="/home" />;
+      
+      return <Redirect to='/home' />;
     }
     const { name } = this.props;
     return (

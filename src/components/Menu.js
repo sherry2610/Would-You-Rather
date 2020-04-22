@@ -44,11 +44,7 @@ const Menu = (props) => {
 function mapStateToProps({ users, loggedUser }) {
   const uid = Object.keys(users);
   const currentUser = Object.values(loggedUser).join("");
-  const currentUserId = uid.filter((uid) => {
-    if (users[uid].name === currentUser) {
-      return users[uid].answers;
-    }
-  });
+  const currentUserId = uid.filter((uid) => {return (users[uid].name === currentUser)?users[uid].answers : ''})
   if (loggedUser) {
     const name = users[currentUserId].name;
     const pic = users[currentUserId].avatarURL;

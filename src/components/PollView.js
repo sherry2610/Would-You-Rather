@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import { handleAddAnswer } from "../actions/questions";
-import {withRouter,Redirect} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
 
 class PollView extends Component {
@@ -21,7 +21,6 @@ class PollView extends Component {
       const {dispatch,currentUserId,id} = this.props
       const {value} = this.state
     e.preventDefault();
-    console.log("VALUE",value)
     dispatch(handleAddAnswer(currentUserId[0],id,value))
   this.props.history.push(`/home`)
   this.props.history.push(`question/${id}`)
@@ -54,11 +53,7 @@ function mapStateToProp({ users,questions, loggedUser },props) {
     const {id} = props.match.params
   const uid = Object.keys(users);
   const currentUser = Object.values(loggedUser).join("");
-  const currentUserId = uid.filter((uid) => {
-    if (users[uid].name === currentUser) {
-      return users[uid].answers;
-    }
-  })
+  const currentUserId = uid.filter((uid) => {return (users[uid].name === currentUser) ? users[uid].answers : '' })
   
   const pic = users[questions[id].author].avatarURL
   const optionOneText = questions[id].optionOne.text
