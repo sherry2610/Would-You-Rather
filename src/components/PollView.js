@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import { handleAddAnswer } from "../actions/questions";
 import {withRouter} from 'react-router-dom'
+import Page404 from "./Page404";
 
 
 class PollView extends Component {
@@ -28,7 +29,8 @@ class PollView extends Component {
   }
   render() {
     
-    const {askedBy,pic,optionOneText,optionTwoText} = this.props
+    const {id,qids,askedBy,pic,optionOneText,optionTwoText} = this.props
+    if(qids.includes(id)){
     return (
         <div className='pollview-card'>
         
@@ -45,12 +47,16 @@ class PollView extends Component {
         
       </Form>
       </div>
-    );
+    )
+    }
+    return <Page404 />
   }
 }
 
 function mapStateToProp({ users,questions, loggedUser },props) {
     const {id} = props.match.params
+  const qids = Object.keys(questions)
+  if(qids.includes(id)){
   const uid = Object.keys(users);
   const currentUser = Object.values(loggedUser).join("");
   const currentUserId = uid.filter((uid) => {return (users[uid].name === currentUser) ? users[uid].answers : '' })
@@ -63,12 +69,18 @@ function mapStateToProp({ users,questions, loggedUser },props) {
   return {
     currentUserId,
     id,
+    qids,
     pic,
     optionOneText,
     optionTwoText,
     askedBy
 
-  };
+  }
+}
+return {
+  id,
+  qids
+}
 }
 
 export default withRouter(connect(mapStateToProp)(PollView))

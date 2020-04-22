@@ -8,28 +8,25 @@ import Button from "react-bootstrap/Button";
 
 class AllQuestion extends Component {
   state = {
-    answeredQues: [],
-    unansweredQues: this.props.unanswered,
+    whichCategory:"unanswered",
     answeredQuesBtn: false,
     unansweredQuesBtn: true,
     pollView: true,
   };
   showAnswered = () => {
-    const { answered } = this.props;
+    
 
     this.setState(() => ({
-      answeredQues: answered,
-      unansweredQues: false,
+      whichCategory:'answered',
       answeredQuesBtn: true,
       unansweredQuesBtn: false,
       pollView: false,
     }));
   };
   showUnanswered = () => {
-    const { unanswered } = this.props;
+    
     this.setState(() => ({
-      answeredQues: [],
-      unansweredQues: unanswered,
+      whichCategory:"unanswered",
       answeredQuesBtn: false,
       unansweredQuesBtn: true,
       pollView: true,
@@ -37,16 +34,17 @@ class AllQuestion extends Component {
   };
 
   render() {
+    
+    const {unanswered,answered} = this.props
     const {
-      unansweredQues,
-      answeredQues,
+      whichCategory,
       unansweredQuesBtn,
       answeredQuesBtn,
       pollView,
     } = this.state;
 
-    const pass = unansweredQues ? unansweredQues : answeredQues;
-
+    const pass = whichCategory==='unanswered' ? unanswered : answered;
+    
     return (
       <Container fluid style={{ border: "5px double #f5fc0f", width: "60%" }}>
         <Row>
@@ -95,12 +93,11 @@ function mapStateToProps({ users, questions, loggedUser }) {
     const uid = Object.keys(users);
     const currentUser = Object.values(loggedUser).join("");
     const currentUserId = uid.filter((uid) =>{return (users[uid].name === currentUser)? users[uid].answers : ''})
-    const unanswered = [];
+    
 
     const answered = Object.keys(users[currentUserId].answers);
-    qid.forEach((id) => {
-      !answered.includes(id) && unanswered.push(id);
-    });
+
+    const unanswered = qid.filter(id => !answered.includes(id))
     return {
       loggedUser,
       currentUserId,

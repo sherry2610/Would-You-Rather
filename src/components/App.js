@@ -30,7 +30,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       fakeAuth.isAuthenticated === true ? (
         <Component {...props} />
       ) : (
-        <Redirect to='/' />
+        <Redirect to={{
+  pathname: '/login',
+  state: { from: props.location }
+}} />
       )
     }
   />
@@ -54,6 +57,7 @@ class App extends Component {
             "/question/:id",
             "/leaderboard",
           ]}
+          exact
           component={Menu}
         />
         <Switch>
@@ -63,7 +67,7 @@ class App extends Component {
         <PrivateRoute path="/questions/:id" component={PollView} />
         <PrivateRoute path="/question/:id" component={Result} />
         <PrivateRoute path="/leaderboard" component={Leaderboard} />
-        <Route component={Page404} />
+        <PrivateRoute component={Page404} />
         </Switch>
         </div>
     );

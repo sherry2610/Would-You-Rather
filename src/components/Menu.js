@@ -15,20 +15,20 @@ const Menu = (props) => {
   };
   const { pic, name } = props;
   return (
-    <Navbar bg="dark" variant="dark">
-      <Link to="/home">WOULD YOU RATHER</Link>
-      <Nav className="mr-auto">
-        <Link to="/home" className="nav-link">Home</Link>
-        <Link to="/add" className="nav-link" >ADD QUESTION</Link>
+    <Navbar  style={{background:'yellow',border:'5px groove black'}} >
+      <h2 >WOULD YOU RATHER</h2>
+      <Nav className="mr-auto nav-link">
+        <Link to="/home" className="nav-link" >Home</Link>
+        <Link to="/add" className="nav-link" >Add Question</Link>
         <Link to="/leaderboard" className="nav-link" >Leaderboard</Link>
       </Nav>
       <Image
         src={pic}
         alt="profile pic"
         roundedCircle
-        style={{ height: "50px" }}
+        style={{ height: "50px",marginRight: '20px'}}
       />
-      <span style={{ color: "white" }}>{name}</span>
+      <span style={{ color: "black",marginRight: '20px' }}>{name}</span>
       <Button
         variant="outline-info"
         onClick={() => {
