@@ -7,7 +7,7 @@ import Image from "react-bootstrap/Image";
 class Leaderboard extends Component {
   render() {
     const { names, pics, noOfAnswers, noOfQuestions, sum } = this.props;
-    const data = names.map((name, i) => {
+    const userData = names.map((name, i) => {
       return {
         name: name,
         pic: pics[i],
@@ -18,21 +18,21 @@ class Leaderboard extends Component {
     });
 
 
-    data.sort((a, b) => {
+    userData.sort((a, b) => {
       return b.sum - a.sum;
     });
 
 
     return (
       <div>
-        {data.map((data) => (
-          <Row key={data.name}>
+        {userData.map((userData) => (
+          <Row key={userData.name}>
             <div className="leaderboard-info">
               <Col className="leaderboard-card">
-                <h3 className="leaderboard-name">{data.name}</h3>
+                <h3 className="leaderboard-name">{userData.name}</h3>
                 <div className="leaderboard-img-div">
                   <Image
-                    src={data.pic}
+                    src={userData.pic}
                     alt="profile pic"
                     className="leaderboard-img"
                     roundedCircle
@@ -41,14 +41,14 @@ class Leaderboard extends Component {
               </Col>
               <Col>
                 <p className="leaderboard-text">
-                  Total No. Of Question Created :{data.noOfQuestion}{" "}
+                  Total No. Of Question Created :{userData.noOfQuestion}{" "}
                 </p>
                 <p className="leaderboard-text">
-                  Total No. Of Answers :{data.noOfAnswer}{" "}
+                  Total No. Of Answers :{userData.noOfAnswer}{" "}
                 </p>
               </Col>
               <Col>
-                <span className="leaderboard-score">SCORE :{data.sum}</span>
+                <span className="leaderboard-score">SCORE :{userData.sum}</span>
               </Col>
             </div>
           </Row>

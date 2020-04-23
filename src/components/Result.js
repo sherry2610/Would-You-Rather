@@ -43,7 +43,7 @@ class Result extends Component {
         <div className="bar-div">
         {loggedInUserSelectedOption===optionOneText?<p style={{border:"4px solid yellow",width:'500px'}}>{`YOU CHOOSE Option A : ${optionOneText}`}</p>:<p>{`Option A : ${optionOneText}`}</p>}
           
-           <b>{`${optionOneVotes.length} out of ${sumOfUsersAnsweredThisQues} selected option B`}</b>
+           <b>{`${optionOneVotes.length} out of ${sumOfUsersAnsweredThisQues} selected option A`}</b>
           <ProgressBar
             now={percentForOptOne}
             label={`${percentForOptOne}%`}
